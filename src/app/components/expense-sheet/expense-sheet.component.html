@@ -1,0 +1,46 @@
+<article>
+    <h1>Monthly Income</h1>
+    <section>
+        <form (ngSubmit)="onAddMonthlyIncome()">
+            <input type="text" name="name" [(ngModel)]="newMonthlyIncome" placeholder="Name">
+            <button type="submit" value="Add">Add</button>
+        </form>
+    </section>
+
+
+    <h1>Expenses</h1>
+
+    <section>
+        <form (ngSubmit)="onAddNewExpense()">
+            <input type="text" name="name" [(ngModel)]="newName" placeholder="Name">
+            <input type="text" name="amount" [(ngModel)]="newAmount" placeholder="Amount">
+            <button type="submit" value="Add">Add</button>
+        </form>
+
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+            </tr>
+            <tr *ngFor="let expense of expenseArray">
+                <td>{{ expense.name }}</td>
+                <td>{{ expense.amount }}</td>
+                <td><button type="button" value="delete" id="{{ expense.id }}"
+                        (click)="onDelete(expense)">Delete</button></td>
+            </tr>
+            <tfoot>
+                <td></td>
+                <td>Total: {{ expenseTotal }}</td>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+    <!-- <ul *ngFor="let expense of expenseArray">
+        <li>{{ expense.name }}, {{ expense.amount }}</li>
+    </ul> -->
+</article>

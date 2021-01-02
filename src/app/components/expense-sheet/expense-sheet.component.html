@@ -2,35 +2,70 @@
     <h1>Monthly Income</h1>
     <section>
         <form (ngSubmit)="onAddMonthlyIncome()">
-            <input type="text" name="name" [(ngModel)]="newMonthlyIncome" placeholder="Name">
+            <input type="text" name="amount" [(ngModel)]="newMonthlyIncome" placeholder="Amount">
             <button type="submit" value="Add">Add</button>
         </form>
+        <h3>Monthly Income: {{ monthlyIncome.amount }}</h3>
     </section>
 
 
-    <h1>Expenses</h1>
+    <h2>Expenses</h2>
+
+    <hr />
 
     <section>
-        <h1>Needs</h1>
+        <h3>Needs</h3>
+        <div>Goal: {{ expenseGoals.needs }}</div>
+        <div>Actual: {{ expenseTotal.needs }}</div>
 
         <table>
             <tr>
                 <th>Name</th>
                 <th>Amount</th>
             </tr>
-            <tr *ngFor="let expense of expenseArray">
+            <tr *ngFor="let expense of expenses.needs">
                 <td>{{ expense.name }}</td>
                 <td>{{ expense.amount }}</td>
                 <td><button type="button" value="delete" id="{{ expense.id }}"
-                        (click)="onDelete(expense)">Delete</button></td>
+                        (click)="onDelete(expense, 'needs')">Delete</button></td>
             </tr>
             <tfoot>
                 <td></td>
-                <td>Total: {{ expenseTotal }}</td>
+                <td>Total: {{ expenseTotal.needs }}</td>
             </tfoot>
         </table>
 
-        <form (ngSubmit)="onAddNewExpense()">
+        <form (ngSubmit)="onAddNewExpense('needs')">
+            <input type="text" name="name" [(ngModel)]="newName" placeholder="Name">
+            <input type="text" name="amount" [(ngModel)]="newAmount" placeholder="Amount">
+            <button type="submit" value="Add">Add</button>
+        </form>
+    </section>
+
+    <br />
+    <hr />
+    
+    <section>
+        <h3>Wants</h3>
+    
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+            </tr>
+            <tr *ngFor="let expense of expenses.wants">
+                <td>{{ expense.name }}</td>
+                <td>{{ expense.amount }}</td>
+                <td><button type="button" value="delete" id="{{ expense.id }}" (click)="onDelete(expense, 'wants')">Delete</button>
+                </td>
+            </tr>
+            <tfoot>
+                <td></td>
+                <td>Total: {{ expenseTotal.wants }}</td>
+            </tfoot>
+        </table>
+    
+        <form (ngSubmit)="onAddNewExpense('wants')">
             <input type="text" name="name" [(ngModel)]="newName" placeholder="Name">
             <input type="text" name="amount" [(ngModel)]="newAmount" placeholder="Amount">
             <button type="submit" value="Add">Add</button>

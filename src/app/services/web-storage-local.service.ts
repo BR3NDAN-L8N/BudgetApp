@@ -27,12 +27,12 @@ export class WebStorageLocalService {
         return this.getDataFromLocal(expenses);
     }
 
-    public deleteExpense(expenseId) {
+    public deleteExpense(expenseId, type) {
         let lsData = this.getDataFromLocal(expenses);
 
-        lsData.forEach((item, index) => {
+        lsData[type].forEach((item, index) => {
             if (item.id === expenseId) {
-                lsData.splice(index, 1);
+                lsData[type].splice(index, 1);
             }
         });
 
@@ -44,6 +44,11 @@ export class WebStorageLocalService {
     //    
     public async saveIncome(data) {
         await this.addNewDataToLocal(income, data);
+    }
+
+    public async getIncome() {
+        let lsData = await this.getDataFromLocal(income);
+        return lsData;
     }
 
     // 
@@ -79,14 +84,14 @@ export class WebStorageLocalService {
         console.log('end: saveDataLocally \n*****\n');
     }
 
-    private getDataFromLocal(dataType): any {
+    private getDataFromLocal(dataType) {
         console.log('\n*****\nstart: getDataFromLocal');
 
         let STORAGE_KEY: string = this.setStorageKey(dataType);
 
         //  Command to get data from Local-Storage
         const localStorage = this.storage.get(STORAGE_KEY);
-        console.log('data from local storage', localStorage);
+        console.log('data from local storage: ', localStorage);
 
 
         console.log('end: getDataFromLocal\n*****\n');
